@@ -1,5 +1,6 @@
 # Robot
 
+Robot simulator moving on a square table. The table is 5 units x 5 units in size. There are no obstructions on the table surface. The robot is free to roam around the surface of the table, but must be prevented from falling.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
 ## Development server
