@@ -1,0 +1,41 @@
+.playground {
+  width: 400px;
+}
+
+.icon {
+  width: 20px;
+}
+:host ::ng-deep .playground .ant-card-body {
+  position: relative;
+  height: 400px;
+  width: 400px;
+}
+.robot {
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  display: block;
+  border: dashed 1px #ddd;
+  position: absolute;
+  background-image: url(../../../assets/robot.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60px;
+}
+
+.face-to-north {
+  transform: rotate(0deg);
+}
+
+.face-to-south {
+  transform: rotate(180deg);
+}
+
+.face-to-east {
+  transform: rotate(90deg);
+}
+
+.face-to-west {
+  transform: rotate(270deg);
+}

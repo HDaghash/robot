@@ -1,0 +1,64 @@
+<form nz-form nzGutter="24" [nzLayout]="'inline'" [formGroup]="form" (ngSubmit)="init()">
+  <nz-alert nzType="info" nzMessage="{{note}}" nzShowIcon></nz-alert>
+  <div nz-row>
+    <div nz-col nzSpan="6">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="anticon anticon-appstore-o">
+            <input formControlName="positionX" nz-input placeholder="X">
+          </nz-input-group>
+          <nz-form-explain *ngIf="form.controls.positionX.dirty && form.controls.positionX.hasError('required')">Please input X position!</nz-form-explain>
+          <nz-form-explain *ngIf="form.controls.positionX.dirty && form.controls.positionX.hasError('pattern')">Only numeric values allowed!</nz-form-explain>
+
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="6">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="anticon anticon-appstore-o">
+            <input formControlName="positionY" nz-input type="text" placeholder="Y">
+          </nz-input-group>
+          <nz-form-explain *ngIf="form.controls.positionY.dirty && form.controls.positionY.hasError('required')">Please input your Y position!</nz-form-explain>
+          <nz-form-explain *ngIf="form.controls.positionY.dirty && form.controls.positionY.hasError('pattern')">Only numeric values allowed!</nz-form-explain>
+
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="7">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-select class="direction" style="width: 120px;" formControlName="direction" nzAllowClear nzPlaceHolder="Directions">
+            <nz-option *ngFor="let direction of directions" [nzValue]="direction.value" [nzLabel]="direction.name"></nz-option>
+          </nz-select>
+          <nz-form-explain *ngIf="form.controls.direction.dirty && form.controls.direction.hasError('required')">Please input your direction !</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="5">
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" [disabled]="!form.valid">Place</button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <br/>
+  <div nz-row nzGutter="20">
+    <div nz-col nzSpan="4">
+      <button type="button" (click)="move()" nz-button nzType="dashed">Move</button>
+    </div>
+    <div nz-col nzSpan="4">
+      <button type="button" (click)="turnLeft()" nz-button nzType="dashed">Left</button>
+    </div>
+    <div nz-col nzSpan="4">
+      <button type="button" (click)="turnRight()" nz-button nzType="dashed">Right</button>
+    </div>
+    <div nz-col nzSpan="4">
+      <button type="button" (click)="report()" nz-button nzType="dashed">Report</button>
+    </div>
+    <div nz-col nzSpan="4">
+      <button type="button" (click)="remove()" nz-button nzType="danger">Remove</button>
+    </div>
+  </div>
+</form>

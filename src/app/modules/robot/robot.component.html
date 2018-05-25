@@ -1,0 +1,18 @@
+<div nz-row>
+  <div nz-col [nzSpan]="10" [nzPush]="0">
+    <nz-card class="playground" nzTitle="Robot Field" [nzExtra]="robotIcon">
+      <div #robot class="robot {{face}}" [ngStyle]="{'left.px':fromLeft ,'top.px':fromTop  }" [hidden]="!placed"></div>
+    </nz-card>
+    <ng-template #robotIcon>
+      <img class="icon" src="../../../assets/robot-face.png" />
+    </ng-template>
+  </div>
+  <div nz-col [nzSpan]="12" [nzPush]="2">
+    <nz-card class="controling" nzTitle="Controling" [nzExtra]="controlIcon">
+      <app-control></app-control>
+    </nz-card>
+    <ng-template #controlIcon>
+      <img class="icon" src="../../../assets/video-game.png" />
+    </ng-template>
+  </div>
+</div>

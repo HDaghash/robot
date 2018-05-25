@@ -1,0 +1,7 @@
+.direction {
+  padding-top: 4px;
+}
+
+:host ::ng-deep nz-form-explain {
+  font-size: 9px;
+}
