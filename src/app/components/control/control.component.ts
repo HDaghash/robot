@@ -4,6 +4,11 @@ import { DIRECTIONS } from './form-options';
 import { DIRECTIONS_CLASS } from '../../modules/robot/config';
 import { RobotComponent } from '../../modules/robot/robot.component';
 import { NzMessageService } from 'ng-zorro-antd';
+import {
+  SYSTEM_NOTE,
+  ROBOT_OVERFLOW,
+  NOT_PLACED,
+} from '../../modules/sheard/messages';
 
 @Component({
   selector: 'app-control',
@@ -19,7 +24,7 @@ export class ControlComponent implements OnInit {
   numeric = /^(0|[1-9][0-9]*)$/;
   robotSize = this.robotComponent.robotSize;
   playground = this.robotComponent.playground;
-  note = 'Use place command to place the robot , (0,0) is the SOUTH WEST most corner';
+  note = SYSTEM_NOTE;
   constructor(
     private fb: FormBuilder,
     private robotComponent: RobotComponent,
@@ -143,7 +148,7 @@ export class ControlComponent implements OnInit {
    * @param type of the message.
    */
   inform(type: string): void {
-    this.message.create(type, `sorry , you can't cross the borders`);
+    this.message.create(type, ROBOT_OVERFLOW);
   }
 
   /**
@@ -161,7 +166,7 @@ export class ControlComponent implements OnInit {
         `Robot standing on row ${row} , column ${column} and his ${face}`,
       );
     } else {
-      this.message.create('warning', 'Robot is not placed');
+      this.message.create('warning', NOT_PLACED);
     }
   }
 
