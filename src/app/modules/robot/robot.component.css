@@ -40,3 +40,20 @@
 .face-to-west {
   transform: rotate(270deg);
 }
+
+@media screen and (max-width: 1082px) {
+  .page-body {
+    display: none;
+  }
+  .screen-size-warning::before {
+    content: 'Resize screen to bigger size';
+    display: block;
+    font-size: 40px;
+    text-align: center;
+    position: relative;
+    left: 0;
+    right: 0;
+    color: #333;
+    top: 0;
+  }
+}
