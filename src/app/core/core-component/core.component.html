@@ -4,11 +4,34 @@
         </div>
         <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
 
-
             <li nz-menu-item>
                 <span>
-                    <i class="anticon anticon-file"></i>
-                    <span class="nav-text">File</span>
+                    <i class="anticon anticon-up-circle-o"></i>
+                    <span class="nav-text">Move</span>
+                </span>
+            </li>
+            <li nz-menu-item>
+                <span>
+                    <i class="anticon anticon-arrow-left"></i>
+                    <span (click)="left()" class="nav-text">Left</span>
+                </span>
+            </li>
+            <li nz-menu-item>
+                <span>
+                    <i class="anticon anticon-arrow-right"></i>
+                    <span (click)="right()" class="nav-text">Right</span>
+                </span>
+            </li>
+            <li nz-menu-item>
+                <span>
+                    <i class="anticon anticon-profile"></i>
+                    <span (click)="report()" class="nav-text">Robot</span>
+                </span>
+            </li>
+            <li nz-menu-item>
+                <span>
+                    <i class="anticon anticon-close-circle"></i>
+                    <span (click)="remove()" class="nav-text">Remove</span>
                 </span>
             </li>
         </ul>

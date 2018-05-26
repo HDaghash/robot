@@ -1,5 +1,7 @@
-<form nz-form nzGutter="24" [nzLayout]="'inline'" [formGroup]="form" (ngSubmit)="init()">
+<form nz-form nzGutter="24" [nzLayout]="'inline'" [formGroup]="form" (ngSubmit)="issue('place')">
   <nz-alert nzType="info" nzMessage="{{note}}" nzShowIcon></nz-alert>
+  <nz-divider nzOrientation="left" nzText="Single Command issuer"></nz-divider>
+
   <div nz-row>
     <div nz-col nzSpan="6">
       <nz-form-item>
@@ -44,21 +46,29 @@
     </div>
   </div>
   <br/>
+
   <div nz-row nzGutter="20">
     <div nz-col nzSpan="4">
-      <button type="button" (click)="move()" nz-button nzType="dashed">Move</button>
+      <button type="button" (click)="issue('move')" nz-button nzType="dashed">Move</button>
     </div>
     <div nz-col nzSpan="4">
-      <button type="button" (click)="turnLeft()" nz-button nzType="dashed">Left</button>
+      <button type="button" (click)="issue('left')" nz-button nzType="dashed">Left</button>
     </div>
     <div nz-col nzSpan="4">
-      <button type="button" (click)="turnRight()" nz-button nzType="dashed">Right</button>
+      <button type="button" (click)="issue('right')" nz-button nzType="dashed">Right</button>
     </div>
     <div nz-col nzSpan="4">
       <button type="button" (click)="report()" nz-button nzType="dashed">Report</button>
     </div>
     <div nz-col nzSpan="4">
-      <button type="button" (click)="remove()" nz-button nzType="danger">Remove</button>
+      <button type="button" (click)="issue('remove')" nz-button nzType="danger">Remove</button>
     </div>
+  </div>
+  <nz-divider nzOrientation="left" nzText="Results"></nz-divider>
+
+  <div ns-row nxGutter="20">
+    <button type="button" nz-button nzType="primary" (click)="results()" [nzLoading]="isLoading">
+      <i class="anticon anticon-download"></i>Show Movments Results!</button>
+
   </div>
 </form>

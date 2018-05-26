@@ -22,6 +22,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 60px;
+  transition: all 0.5s ease;
 }
 
 .face-to-north {

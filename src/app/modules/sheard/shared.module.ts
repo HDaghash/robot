@@ -14,5 +14,6 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
     ControlComponent,
     NgZorroAntdModule,
   ],
+  entryComponents: [ControlComponent],
 })
 export class SharedModule {}
