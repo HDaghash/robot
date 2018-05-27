@@ -235,8 +235,9 @@ export class ControlComponent implements OnInit {
    */
   locate(): Location {
     const face = this.robotComponent.face.replace(/-/g, ' ');
-    const column = this.robotComponent.fromLeft / this.robotSize + 1;
-    const row = this.robotComponent.fromTop / this.robotSize + 1;
+    const column = this.robotComponent.fromLeft / this.robotSize;
+    const rows = this.robotComponent.rows - 1;
+    const row = rows - this.robotComponent.fromTop / this.robotSize;
     return { face, column, row };
   }
 
