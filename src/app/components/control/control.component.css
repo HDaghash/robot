@@ -5,3 +5,7 @@
 :host ::ng-deep nz-form-explain {
   font-size: 9px;
 }
+
+.script-text {
+  text-transform: uppercase;
+}

@@ -5,22 +5,27 @@ import { DIRECTIONS_CLASS } from '../../modules/robot/config';
 import { RobotComponent } from '../../modules/robot/robot.component';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
+import { ParserService } from '../../services/parser.service';
 import {
   SYSTEM_NOTE,
   ROBOT_OVERFLOW,
   NOT_PLACED,
   NO_DATA,
+  MULTI_COMMAND_PLACE_HOLDER,
+  NOT_VALID_COMMAND,
 } from '../../modules/sheard/messages';
 import { Location } from './types';
 @Component({
   selector: 'app-control',
   templateUrl: './control.component.html',
   styleUrls: ['./control.component.css'],
+  providers: [ParserService],
 })
 export class ControlComponent implements OnInit {
   @ViewChild('robot') robot: ElementRef;
 
   form: FormGroup;
+  script: FormGroup;
   directions = DIRECTIONS;
   directionsClass = DIRECTIONS_CLASS;
   numeric = /^(0|[1-9][0-9]*)$/;
@@ -28,10 +33,12 @@ export class ControlComponent implements OnInit {
   playground = this.robotComponent.playground;
   note = SYSTEM_NOTE;
   commands = [];
+  MULTI_COMMAND_PLACE_HOLDER = MULTI_COMMAND_PLACE_HOLDER;
   constructor(
     private fb: FormBuilder,
     private robotComponent: RobotComponent,
     private message: NzMessageService,
+    private parserService: ParserService,
   ) {}
 
   ngOnInit() {
@@ -45,6 +52,10 @@ export class ControlComponent implements OnInit {
         [Validators.required, Validators.pattern(this.numeric)],
       ],
       direction: [null, [Validators.required]],
+    });
+
+    this.script = this.fb.group({
+      text: [null, [Validators.required]],
     });
   }
 
@@ -213,12 +224,13 @@ export class ControlComponent implements OnInit {
       this.remove();
       this.log(`User removed the robot.`);
     } else if (command === 'place') {
-      const { row, column } = this.locate();
+      // TODO service
+      const row = this.form.controls.positionX.value;
+      const column = this.form.controls.positionY.value;
+      const face = this.form.controls.direction.value;
       this.init();
       this.log(
-        `User placed the robot in row ${row} column ${column} and face to ${
-          direction[index]
-        }.`,
+        `User placed the robot in row ${row} column ${column} and face to ${face}.`,
       );
     }
   }
@@ -236,8 +248,10 @@ export class ControlComponent implements OnInit {
   locate(): Location {
     const face = this.robotComponent.face.replace(/-/g, ' ');
     const column = this.robotComponent.fromLeft / this.robotSize;
-    const rows = this.robotComponent.rows - 1;
-    const row = rows - this.robotComponent.fromTop / this.robotSize;
+    const row =
+      (this.robotComponent.playground - this.robotComponent.fromTop) /
+        this.robotSize -
+      1;
     return { face, column, row };
   }
 
@@ -248,10 +262,10 @@ export class ControlComponent implements OnInit {
     const data = this.commands;
     if (data.length > 0) {
       const results = new Angular5Csv(data, 'Results');
-      this.wipe();
     } else {
       this.message.create('warning', NO_DATA);
     }
+    this.wipe();
   }
 
   /**
@@ -259,5 +273,45 @@ export class ControlComponent implements OnInit {
    */
   wipe() {
     this.commands = [];
+  }
+
+  /**
+   * Multi command issuer parser,
+   * parse text into functions.
+   */
+  multi() {
+    const value = this.script.controls.text.value.split(/\n/);
+    value.forEach((text, index) => {
+      const command = this.parserService.parse(text);
+      if (command && command.type) {
+        setTimeout(() => {
+          this.sendComand(command);
+        }, 1000 * index);
+      }
+    });
+  }
+
+  /**
+   * Check command type and fire the issuer
+   * @param command
+   */
+  sendComand(command) {
+    if (command.type === 'invalid') {
+      this.message.create('error', NOT_VALID_COMMAND);
+    } else if (
+      command.type === 'place' &&
+      command.row &&
+      command.column &&
+      command.direction
+    ) {
+      this.form.controls.positionX.setValue(command.row);
+      this.form.controls.positionY.setValue(command.column);
+      this.form.controls.direction.setValue(command.direction);
+      this.issue(command.type);
+    } else if (command.type === 'report') {
+      this.report();
+    } else {
+      this.issue(command.type);
+    }
   }
 }

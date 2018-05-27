@@ -1,7 +1,18 @@
-<form nz-form nzGutter="24" [nzLayout]="'inline'" [formGroup]="form" (ngSubmit)="issue('place')">
-  <nz-alert nzType="info" nzMessage="{{note}}" nzShowIcon></nz-alert>
-  <nz-divider nzOrientation="left" nzText="Single Command issuer"></nz-divider>
+<form nz-form nzGutter="24" [formGroup]="script" (ngSubmit)="multi()">
+  <div nz-row>
+    <nz-divider nzOrientation="left" nzText="Multi command issuer"></nz-divider>
+    <nz-form-item>
+      <nz-form-control>
+        <textarea class="script-text" formControlName="text" nz-input placeholder="{{MULTI_COMMAND_PLACE_HOLDER}}" [nzAutosize]="{ minRows: 4, maxRows: 6 }"></textarea>
+        <nz-form-explain *ngIf="script.controls.text.dirty && script.controls.text.hasError('required')">Please input your commands !</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <button nz-button nzType="primary" [disabled]="!script.valid">Submit</button>
+  </div>
+</form>
 
+<form nz-form nzGutter="24" [nzLayout]="'inline'" [formGroup]="form" (ngSubmit)="issue('place')">
+  <nz-divider nzOrientation="left" nzText="Single command issuer"></nz-divider>
   <div nz-row>
     <div nz-col nzSpan="6">
       <nz-form-item>
@@ -23,7 +34,6 @@
           </nz-input-group>
           <nz-form-explain *ngIf="form.controls.positionY.dirty && form.controls.positionY.hasError('required')">Please input your Y position!</nz-form-explain>
           <nz-form-explain *ngIf="form.controls.positionY.dirty && form.controls.positionY.hasError('pattern')">Only numeric values allowed!</nz-form-explain>
-
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -47,7 +57,7 @@
   </div>
   <br/>
 
-  <div nz-row nzGutter="20">
+  <div nz-row nzGutter="24">
     <div nz-col nzSpan="4">
       <button type="button" (click)="issue('move')" nz-button nzType="dashed">Move</button>
     </div>
@@ -57,10 +67,10 @@
     <div nz-col nzSpan="4">
       <button type="button" (click)="issue('right')" nz-button nzType="dashed">Right</button>
     </div>
-    <div nz-col nzSpan="4">
+    <div nz-col nzSpan="5">
       <button type="button" (click)="report()" nz-button nzType="dashed">Report</button>
     </div>
-    <div nz-col nzSpan="4">
+    <div nz-col nzSpan="7">
       <button type="button" (click)="issue('remove')" nz-button nzType="danger">Remove</button>
     </div>
   </div>

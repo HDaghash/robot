@@ -23,6 +23,7 @@
   background-position: center;
   background-size: 60px;
   transition: all 0.5s ease;
+  animation-delay: 0.5;
 }
 
 .face-to-north {
