@@ -6,6 +6,7 @@ import { RobotComponent } from '../../modules/robot/robot.component';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 import { ParserService } from '../../services/parser.service';
+import { FormService } from '../../services/form.service';
 import {
   SYSTEM_NOTE,
   ROBOT_OVERFLOW,
@@ -19,7 +20,7 @@ import { Location } from './types';
   selector: 'app-control',
   templateUrl: './control.component.html',
   styleUrls: ['./control.component.css'],
-  providers: [ParserService],
+  providers: [ParserService, FormService],
 })
 export class ControlComponent implements OnInit {
   @ViewChild('robot') robot: ElementRef;
@@ -39,6 +40,7 @@ export class ControlComponent implements OnInit {
     private robotComponent: RobotComponent,
     private message: NzMessageService,
     private parserService: ParserService,
+    private formService: FormService,
   ) {}
 
   ngOnInit() {
@@ -209,11 +211,11 @@ export class ControlComponent implements OnInit {
 
   issue(command: string): void {
     const placed = this.robotComponent.placed;
-    const direction = this.robotComponent.face.split('-');
+    const face = this.robotComponent.face.split('-');
     const index = 2;
     if (command === 'move' && placed) {
       this.move();
-      this.log(`One step to ${direction[index]}.`);
+      this.log(`One step to ${face[index]}.`);
     } else if (command === 'right' && placed) {
       this.turnRight();
       this.log(`Turn right.`);
@@ -224,13 +226,12 @@ export class ControlComponent implements OnInit {
       this.remove();
       this.log(`User removed the robot.`);
     } else if (command === 'place') {
-      // TODO service
-      const row = this.form.controls.positionX.value;
-      const column = this.form.controls.positionY.value;
-      const face = this.form.controls.direction.value;
+      const { positionX, positionY, direction } = this.formService.fetchData(
+        this.form.controls,
+      );
       this.init();
       this.log(
-        `User placed the robot in row ${row} column ${column} and face to ${face}.`,
+        `User placed the robot in row ${positionX} column ${positionY} and face to ${direction}.`,
       );
     }
   }
