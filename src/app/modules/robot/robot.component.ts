@@ -37,8 +37,8 @@ export class RobotComponent implements OnInit {
   place(x, y, face, name?) {
     this.name = name || 'Mr.Robot';
     this.face = face;
-    this.fromLeft = x * this.robotSize - this.robotSize;
-    this.fromTop = this.playground - this.robotSize * y;
+    this.fromLeft = y * this.robotSize - this.robotSize;
+    this.fromTop = this.playground - this.robotSize * x;
     this.placed = true;
   }
 }
