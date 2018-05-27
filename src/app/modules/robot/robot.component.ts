@@ -41,4 +41,8 @@ export class RobotComponent implements OnInit {
     this.fromTop = this.playground - this.robotSize * x;
     this.placed = true;
   }
+
+  issue(command) {
+    console.log('command issued ..');
+  }
 }

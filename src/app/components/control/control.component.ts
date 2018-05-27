@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DIRECTIONS } from './form-options';
 import { DIRECTIONS_CLASS } from '../../modules/robot/config';
@@ -23,7 +29,7 @@ import { Location } from './types';
   providers: [ParserService, FormService],
 })
 export class ControlComponent implements OnInit {
-  @ViewChild('robot') robot: ElementRef;
+  @Output() submit = new EventEmitter();
 
   form: FormGroup;
   script: FormGroup;
