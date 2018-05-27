@@ -4,8 +4,30 @@ Robot simulator moving on a square table. The table is 5 units x 5 units in size
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
 ## Development server
-
+- clone the repo .
+- make sure to have node and npm installed on your device . node : (https://nodejs.org/en/download/) | npm : (https://www.npmjs.com/get-npm)
+- Run `npm install` (to install all the dependencies)
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Examples 
+
+* for multi commands executions use the text area to submit your text like the following example :
+
+```
+PLACE 1,3,NORTH
+RIGHT
+MOVE
+LEFT
+MOVE
+MOVE
+RIGHT
+MOVE
+REPORT
+```
+
+* for single command use the single form issuer
+
+* don't forget to install a full report about your movments by clicking "Download movments results" (csv file will be exported)
 
 ## Code scaffolding
 
