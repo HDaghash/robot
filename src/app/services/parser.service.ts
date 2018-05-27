@@ -5,7 +5,7 @@ export class ParserService {
   constructor() {}
 
   parse(script) {
-    if (script) {
+    if (script && script.trim() !== '') {
       const paramIndex = 1;
       const rowIndex = 0;
       const colIndex = 1;
@@ -19,7 +19,7 @@ export class ParserService {
         if (row && column && direction) {
           return { type: 'place', row, column, direction };
         } else {
-          return null;
+          return { type: 'invalid' };
         }
       } else if (value.includes('move') && value !== 'remove') {
         return { type: 'move' };
@@ -29,6 +29,10 @@ export class ParserService {
         return { type: 'right' };
       } else if (value.includes('remove')) {
         return { type: 'remove' };
+      } else if (value.includes('report')) {
+        return { type: 'report' };
+      } else {
+        return { type: 'invalid' };
       }
     }
   }
